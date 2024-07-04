@@ -14,7 +14,7 @@ const float GRAVITY_Y = 9.8f;
 /// RUTAS SPRITES
 const std::string spritesheetplayerRaul = "Recursos/sprites-players/sprite-player-raul.png";
 const std::string spritesheetplayerCarlos = "Recursos/sprites-players/sprite-player-carlos.png";
-const std::string spritesheetplayerClara = "Recursos/sprites-players/sprite-player-clara2.png";
+const std::string spritesheetplayerClara = "Recursos/sprites-players/sprite-player-clara.png";
 const std::string spritesheetplayerFacundo = "Recursos/sprites-players/sprite-player-facundo.png";
 const std::string spritesheetplayerJorge = "Recursos/sprites-players/sprite-player-jorge.png";
 const std::string spritesheetplayerJuan = "Recursos/sprites-players/sprite-player-juan.png";

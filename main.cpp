@@ -80,7 +80,6 @@ int main() {
 					sf::RenderWindow torneoWindow(sf::VideoMode(800, 600), "Torneo");
 					playWindow.setFramerateLimit(60);
 					torneoWindow.setFramerateLimit(60);
-
 					if (menu.getCurrentOption() == 0)
 					{
 						torneoWindow.close();
