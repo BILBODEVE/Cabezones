@@ -73,8 +73,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>.\SFML-2.6.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>.\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\infit\Documents\NuevoCabezones\Cabezones\SFML-2.6.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\infit\Documents\NuevoCabezones\Cabezones\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\SFML-2.6.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>.\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\infit\Documents\Cabezones\SFML-2.6.1\include;$(IncludePath)</IncludePath>
@@ -115,14 +115,14 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.\box2d-main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>C:\Users\infit\Documents\NuevoCabezones\Cabezones\box2d-main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\box2d-main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;box2d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>.\box2d-main\out\build\x64-Debug\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalLibraryDirectories>C:\Users\infit\Documents\NuevoCabezones\Cabezones\box2d-main\out\build\x64-Debug\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\box2d-main\out\build\x64-Debug\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
