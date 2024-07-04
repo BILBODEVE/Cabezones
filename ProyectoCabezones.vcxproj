@@ -73,8 +73,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>.\SFML-2.6.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>.\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\facun\Desktop\Cabezones\ProyectoCabezones\SFML-2.6.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\facun\Desktop\Cabezones\ProyectoCabezones\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\infit\Documents\NuevoCabezones\Cabezones\SFML-2.6.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\infit\Documents\NuevoCabezones\Cabezones\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\infit\Documents\Cabezones\SFML-2.6.1\include;$(IncludePath)</IncludePath>
@@ -115,14 +115,14 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.\box2d-main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>C:\Users\facun\Desktop\Cabezones\ProyectoCabezones\box2d-main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\infit\Documents\NuevoCabezones\Cabezones\box2d-main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;box2d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>.\box2d-main\out\build\x64-Debug\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalLibraryDirectories>C:\Users\facun\Desktop\Cabezones\ProyectoCabezones\box2d-main\out\build\x64-Debug\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\infit\Documents\NuevoCabezones\Cabezones\box2d-main\out\build\x64-Debug\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,6 +143,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArchivoEquipo.cpp" />
+    <ClCompile Include="ArchivoPartido.cpp" />
+    <ClCompile Include="ArchivoPuntaje.cpp" />
     <ClCompile Include="Arco.cpp" />
     <ClCompile Include="Aumentador.cpp" />
     <ClCompile Include="Bomba.cpp" />
@@ -150,19 +153,32 @@
     <ClCompile Include="Colisionable.cpp" />
     <ClCompile Include="Controllers.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Equipo.cpp" />
+    <ClCompile Include="Fixture.cpp" />
     <ClCompile Include="Gameplay.cpp" />
     <ClCompile Include="Hielo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="ManagerEquipo.cpp" />
+    <ClCompile Include="ManagerPartidos.cpp" />
+    <ClCompile Include="ManagerPuntaje.cpp" />
+    <ClCompile Include="Menu.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\infit\Documents\NuevoCabezones\Cabezones\box2d-main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="MyContactListener.cpp" />
+    <ClCompile Include="Partido.cpp" />
     <ClCompile Include="Pelota.cpp" />
     <ClCompile Include="funcionesglobales.cpp" />
     <ClCompile Include="Limite.cpp" />
     <ClCompile Include="Jugador.cpp" />
     <ClCompile Include="ProjectSettings.h" />
+    <ClCompile Include="Puntaje.cpp" />
     <ClCompile Include="Suelo.cpp" />
+    <ClCompile Include="Torneo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArchivoEquipo.h" />
+    <ClInclude Include="ArchivoPartido.h" />
+    <ClInclude Include="ArchivoPuntaje.h" />
     <ClInclude Include="Arco.h" />
     <ClInclude Include="Aumentador.h" />
     <ClInclude Include="Bomba.h" />
@@ -170,15 +186,23 @@
     <ClInclude Include="Colisionable.h" />
     <ClInclude Include="Controllers.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Equipo.h" />
+    <ClInclude Include="Fixture.h" />
     <ClInclude Include="funcionesglobales.h" />
     <ClInclude Include="Gameplay.h" />
     <ClInclude Include="Hielo.h" />
+    <ClInclude Include="ManagerEquipo.h" />
+    <ClInclude Include="ManagerPartidos.h" />
+    <ClInclude Include="ManagerPuntaje.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MyContactListener.h" />
+    <ClInclude Include="Partido.h" />
     <ClInclude Include="Pelota.h" />
     <ClInclude Include="Limite.h" />
     <ClInclude Include="Jugador.h" />
+    <ClInclude Include="Puntaje.h" />
     <ClInclude Include="Suelo.h" />
+    <ClInclude Include="Torneo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

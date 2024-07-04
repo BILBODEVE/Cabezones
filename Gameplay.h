@@ -11,6 +11,7 @@
 #include "Hielo.h"
 #include "Aumentador.h"
 #include "Bomba.h"
+#include "Equipo.h"
 #include "MyContactListener.h"
 
 class Gameplay: public Suelo, public Limite, public CampoDeJuego
@@ -20,6 +21,11 @@ public:
 	void command(b2World& world);
 	void update();
 	void draw(sf::RenderWindow& window);
+	void setNombreJugador(Equipo &equipo, int idplayer);
+	void reiniciarPartido();
+	int getGolesJugador1();
+	int getGolesJugador2();
+	int getTime();
 
 private:
 	Limite _limite;

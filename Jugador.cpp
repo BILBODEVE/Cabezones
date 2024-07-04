@@ -162,6 +162,21 @@ int Jugador::getGoles()
 	return _goles;
 }
 
+void Jugador::resetGoles()
+{
+	_goles = 0;
+}
+
+void Jugador::setName(std::string name)
+{
+	_name = name;
+}
+
+std::string Jugador::getName()
+{
+	return _name;
+}
+
 sf::Sprite& Jugador::getSprite()
 {
 	return sprite;
