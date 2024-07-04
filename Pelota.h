@@ -2,7 +2,6 @@
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
 #include "funcionesglobales.h"
-#include "Entity.h"
 
 class Pelota: public sf::Drawable
 {
@@ -23,6 +22,6 @@ private:
 	b2Body* _bodyPelota;
 	sf::CircleShape _pelota;
 	sf::Texture _texture;
-	float radius;
+	float _radius;
 };
 

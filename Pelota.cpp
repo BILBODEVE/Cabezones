@@ -5,32 +5,6 @@ Pelota::Pelota(b2World& world, const sf::Vector2f& position, float radius)
     setRadius(radius);
     setBodyPelota(world, position);
     setShapePelota(position);
-    //// Crear el cuerpo de Box2D
-    //b2BodyDef bodyDef;
-    //bodyDef.type = b2_dynamicBody;
-    //bodyDef.position = PixelToWorld(position);
-    //bodyDef.linearDamping = 0.4f;
-    //bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-    //_bodyPelota = world.CreateBody(&bodyDef);
-    //   
-    // // Crear la forma de la pelota en Box2D
-    //b2CircleShape circleShape;
-    //circleShape.m_radius = radius / SCALE;
-
-    //// Definir las propiedades físicas de la pelota
-    //b2FixtureDef fixtureDef;
-    //fixtureDef.shape = &circleShape;
-    //fixtureDef.density = 0.5f;
-    //fixtureDef.friction = 0.6f;
-    //fixtureDef.restitution = 0.6f; // Rebote
-    //_bodyPelota->CreateFixture(&fixtureDef);
-
-    // Crear la representación gráfica de SFML
- /*   _texture.loadFromFile("recursos/pelota.png");
-    _pelota.setTexture(&_texture);
-    _pelota.setRadius(radius);
-    _pelota.setOrigin(radius, radius);
-    _pelota.setPosition(position);*/
 }
 
 void Pelota::setBodyPelota(b2World& world, const sf::Vector2f& position)
@@ -45,7 +19,7 @@ void Pelota::setBodyPelota(b2World& world, const sf::Vector2f& position)
 
     // Crear la forma de la pelota en Box2D
     b2CircleShape circleShape;
-    circleShape.m_radius = radius / SCALE;
+    circleShape.m_radius = _radius / SCALE;
 
     // Definir las propiedades físicas de la pelota
     b2FixtureDef fixtureDef;
@@ -60,14 +34,14 @@ void Pelota::setShapePelota(const sf::Vector2f& position)
 {
     _texture.loadFromFile("recursos/pelota.png");
     _pelota.setTexture(&_texture);
-    _pelota.setRadius(radius);
-    _pelota.setOrigin(radius, radius);
+    _pelota.setRadius(_radius);
+    _pelota.setOrigin(_radius, _radius);
     _pelota.setPosition(position);
 }
 
 void Pelota::setRadius(float radius)
 {
-    this->radius = radius;
+    this->_radius = radius;
 }
 
 void Pelota::update()
@@ -92,7 +66,7 @@ void Pelota::setPosition(const sf::Vector2f& position)
 
 float Pelota::getRadius()
 {
-    return radius;
+    return _radius;
 }
 
 b2Body* Pelota::getBody()

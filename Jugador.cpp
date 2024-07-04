@@ -4,26 +4,26 @@
 
 Jugador::Jugador()
 {
-	velocity = sf::Vector2f(0, 0);
-	moveSpeed = 250;
-	jumpSpeed = 450;
+	_velocity = sf::Vector2f(0, 0);
+	_moveSpeed = 250;
+	_jumpSpeed = 450;
 	_goles = 0;
-	frame = 0;
+	_frame = 0;
 	_spriteFrames = 6;
-	state = PlayerState::STILL;
-	move = PlayerState::STILL;
+	_stateMove = PlayerState::STILL;
+	_moveX = PlayerState::STILL;
 }
 
 Jugador::Jugador(b2World& world, std::string textureRoute, sf::Vector2f position, int id, sf::Keyboard::Key jump, sf::Keyboard::Key moveRight, sf::Keyboard::Key moveLeft, sf::Keyboard::Key kick)
-	: keyOfMovement(jump, moveRight, moveLeft, kick)
+	: _keyOfMovement(jump, moveRight, moveLeft, kick)
 {
-	playerID = id;
-	velocity = sf::Vector2f(0, 0);
-	frame = 0;
-	moveSpeed = 250;
-	jumpSpeed = 450;
-	state = PlayerState::STILL;
-	move = PlayerState::STILL;
+	_playerID = id;
+	_velocity = sf::Vector2f(0, 0);
+	_frame = 0;
+	_moveSpeed = 250;
+	_jumpSpeed = 450;
+	_stateMove = PlayerState::STILL;
+	_moveX = PlayerState::STILL;
 	_posicion = position;
 	_goles = 0;
 	_spriteFrames = 6;
@@ -34,69 +34,69 @@ Jugador::Jugador(b2World& world, std::string textureRoute, sf::Vector2f position
 
 void Jugador::command()
 {
-	state = PlayerState::STILL;
-	move = PlayerState::STILL;
+	_stateMove = PlayerState::STILL;
+	_moveX = PlayerState::STILL;
 	
 	if (_bodyJugador->GetLinearVelocity().y == 0) {
-		if (sf::Keyboard::isKeyPressed(keyOfMovement.getKeyToMoveForward())) {
-			state = PlayerState::RUNNING_FORWARD;
+		if (sf::Keyboard::isKeyPressed(_keyOfMovement.getKeyToMoveForward())) {
+			_stateMove = PlayerState::RUNNING_FORWARD;
 		}
-		if (sf::Keyboard::isKeyPressed(keyOfMovement.getKeyToMoveBackward())) {
-			state = PlayerState::RUNNING_BACKWARD;
+		if (sf::Keyboard::isKeyPressed(_keyOfMovement.getKeyToMoveBackward())) {
+			_stateMove = PlayerState::RUNNING_BACKWARD;
 		}
-		if (sf::Keyboard::isKeyPressed(keyOfMovement.getKeyToJump()))
+		if (sf::Keyboard::isKeyPressed(_keyOfMovement.getKeyToJump()))
 		{
-			state = PlayerState::JUMPING;
-			if (sf::Keyboard::isKeyPressed(keyOfMovement.getKeyToMoveForward()))
-				move = PlayerState::RUNNING_FORWARD;
-			if (sf::Keyboard::isKeyPressed(keyOfMovement.getKeyToMoveBackward()))
-				move = PlayerState::RUNNING_BACKWARD;
+			_stateMove = PlayerState::JUMPING;
+			if (sf::Keyboard::isKeyPressed(_keyOfMovement.getKeyToMoveForward()))
+				_moveX = PlayerState::RUNNING_FORWARD;
+			if (sf::Keyboard::isKeyPressed(_keyOfMovement.getKeyToMoveBackward()))
+				_moveX = PlayerState::RUNNING_BACKWARD;
 		}
-		if (sf::Keyboard::isKeyPressed(keyOfMovement.getKeyToKick()))
-			state = PlayerState::KICKING;
+		if (sf::Keyboard::isKeyPressed(_keyOfMovement.getKeyToKick()))
+			_stateMove = PlayerState::KICKING;
 	}
 }
 
 void Jugador::update()
 {
-	switch (state)
+	switch (_stateMove)
 	{
 	case PlayerState::RUNNING_FORWARD:
-		velocity.x = moveSpeed;
-		_bodyJugador->SetLinearVelocity(PixelToWorld(velocity));
+		_velocity.x = _moveSpeed;
+		_bodyJugador->SetLinearVelocity(PixelToWorld(_velocity));
 		break;
 	case PlayerState::RUNNING_BACKWARD:
-		velocity.x = -moveSpeed;
-		_bodyJugador->SetLinearVelocity(PixelToWorld(velocity));
+		_velocity.x = -_moveSpeed;
+		_bodyJugador->SetLinearVelocity(PixelToWorld(_velocity));
 		break;
 	case PlayerState::JUMPING:
-		if (move == PlayerState::RUNNING_FORWARD)
-			velocity.x = moveSpeed / 4;
-		if (move == PlayerState::RUNNING_BACKWARD)
-			velocity.x = -moveSpeed / 4;
-		velocity.y = -jumpSpeed;
-		_bodyJugador->ApplyLinearImpulseToCenter(PixelToWorld(velocity), true);
+		if (_moveX == PlayerState::RUNNING_FORWARD)
+			_velocity.x = _moveSpeed / 4;
+		if (_moveX == PlayerState::RUNNING_BACKWARD)
+			_velocity.x = -_moveSpeed / 4;
+		_velocity.y = -_jumpSpeed;
+		_bodyJugador->ApplyLinearImpulseToCenter(PixelToWorld(_velocity), true);
 		break;
 	case PlayerState::KICKING:
-		if (frame >= _spriteFrames)
-			frame = 0;
+		if (_frame >= _spriteFrames)
+			_frame = 0;
 		else
-			frame += 1.0f;
+			_frame += 1.0f;
 		break;
 	case PlayerState::STILL:
-		frame = 0;
-		velocity.x = 0;
-		velocity.y = 0;
+		_frame = 0;
+		_velocity.x = 0;
+		_velocity.y = 0;
 		break;
 	}
 
-	sprite.setTextureRect({ 0 + (int)frame * _spriteWidth , 0, _spriteWidth, _spriteHeight });
+	_sprite.setTextureRect({ 0 + (int)_frame * _spriteWidth , 0, _spriteWidth, _spriteHeight });
 
 	b2Vec2 playerPosition = _bodyJugador->GetPosition();
 	float angle = _bodyJugador->GetAngle();
-	sprite.setPosition(WorldToPixel(playerPosition));
-	sprite.setOrigin(_spriteWidth / 2.0f, _spriteHeight / 2.0f);
-	sprite.setRotation(angle * 180.0f / b2_pi);
+	_sprite.setPosition(WorldToPixel(playerPosition));
+	_sprite.setOrigin(_spriteWidth / 2.0f, _spriteHeight / 2.0f);
+	_sprite.setRotation(angle * 180.0f / b2_pi);
 }
 
 void Jugador::createBodyPlayer(b2World& world)
@@ -123,14 +123,14 @@ void Jugador::createBodyPlayer(b2World& world)
 void Jugador::createSprite(std::string textureRoute)
 {
 	_textRoute = textureRoute;
-	if (!texture.loadFromFile(_textRoute))
+	if (!_texture.loadFromFile(_textRoute))
 		exit(-1);
-	sprite.setTexture(texture);
-	_spriteHeight = sprite.getGlobalBounds().getSize().y;
-	_spriteWidth = sprite.getGlobalBounds().getSize().x / _spriteFrames;
-	sprite.setTextureRect({ 0,0,_spriteWidth, _spriteHeight });
-	sprite.setOrigin(_spriteWidth / 2.0f, _spriteHeight / 2.0f);
-	sprite.setPosition(_posicion);
+	_sprite.setTexture(_texture);
+	_spriteHeight = _sprite.getGlobalBounds().getSize().y;
+	_spriteWidth = _sprite.getGlobalBounds().getSize().x / _spriteFrames;
+	_sprite.setTextureRect({ 0,0,_spriteWidth, _spriteHeight });
+	_sprite.setOrigin(_spriteWidth / 2.0f, _spriteHeight / 2.0f);
+	_sprite.setPosition(_posicion);
 }
 
 void Jugador::setPosicion(sf::Vector2f position)
@@ -140,15 +140,15 @@ void Jugador::setPosicion(sf::Vector2f position)
 
 void Jugador::setControles(sf::Keyboard::Key jump, sf::Keyboard::Key moveRight, sf::Keyboard::Key moveLeft, sf::Keyboard::Key kick)
 {
-	keyOfMovement.setKeyToJump(jump);
-	keyOfMovement.setKeyToMoveForward(moveRight);
-	keyOfMovement.setKeyToMoveBackward(moveLeft);
-	keyOfMovement.setKeyToKick(kick);
+	_keyOfMovement.setKeyToJump(jump);
+	_keyOfMovement.setKeyToMoveForward(moveRight);
+	_keyOfMovement.setKeyToMoveBackward(moveLeft);
+	_keyOfMovement.setKeyToKick(kick);
 }
 
 void Jugador::draw(sf::RenderTarget& target, sf::RenderStates state) const
 {
-	target.draw(sprite, state);
+	target.draw(_sprite, state);
 }
 
 
@@ -179,7 +179,7 @@ std::string Jugador::getName()
 
 sf::Sprite& Jugador::getSprite()
 {
-	return sprite;
+	return _sprite;
 }
 
 b2Body* Jugador::getBody()
@@ -189,7 +189,7 @@ b2Body* Jugador::getBody()
 
 bool Jugador::isKicking()
 {
-	if (sf::Keyboard::isKeyPressed(keyOfMovement.getKeyToKick())) {
+	if (sf::Keyboard::isKeyPressed(_keyOfMovement.getKeyToKick())) {
 		return true;
 	}
 	return false;
@@ -198,7 +198,7 @@ bool Jugador::isKicking()
 void Jugador::setPlayerID(int ID)
 {
 	if (ID > 0 && ID <= 2)
-		playerID = ID;
+		_playerID = ID;
 }
 
 void Jugador::setPosicionInicial(int id)
@@ -214,12 +214,12 @@ void Jugador::setPosicionInicial(int id)
 
 void Jugador::setMoveSpeed(float velocity)
 {
-	moveSpeed = velocity;
+	_moveSpeed = velocity;
 }
 
 void Jugador::setJumpSpeed(float jumpVelocity)
 {
-	jumpSpeed = jumpVelocity;
+	_jumpSpeed = jumpVelocity;
 }
 
 //void Jugador::crearJugador(bool cabezaAumentada)

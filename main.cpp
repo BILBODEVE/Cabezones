@@ -24,9 +24,9 @@
 #include "ManagerPuntaje.h"
 #include "ArchivoPartido.h"
 
-enum class EstadoTorneo {IngresoDeCantidad, IngresoDeNombres, MuestraResultados, Juego, MuestraGanador, Finalizado};
+enum class EstadoTorneo { IngresoDeCantidad, IngresoDeNombres, MuestraResultados, Juego, MuestraGanador, Finalizado };
 
-void handleInput(sf::Event event, std::string& texto, sf::Text& usuarioE, sf::Clock &clock) {
+void handleInput(sf::Event event, std::string& texto, sf::Text& usuarioE, sf::Clock& clock) {
 	static std::string currentInput;
 	const sf::Time debounceTime = sf::milliseconds(120);
 
@@ -68,7 +68,7 @@ int main() {
 	if (!fontTablas.loadFromFile("recursos/Mono.ttf")) {
 		std::cout << "no font";
 	}
-		
+
 	sf::Text title;
 	sf::Font fontTitle;
 	if (!fontTitle.loadFromFile("varsity_regular.ttf"))
@@ -107,12 +107,12 @@ int main() {
 	entradaUsuario2.setCharacterSize(25);
 	entradaUsuario2.setPosition(50.0f, 250);
 
-	std::string nroDeJugadores="";
-	bool torneocreado= false;
+	std::string nroDeJugadores = "";
+	bool torneocreado = false;
 	bool banderaTorneo = false;
 	//bool banderaEquipos = false;
 	//bool banderaReloj = false;
-	int numJug=0;
+	int numJug = 0;
 	std::string nombreJug;
 
 	sf::Clock clock;
@@ -125,7 +125,7 @@ int main() {
 	ArchivoPartido _ap("FixtureTorneo.fix");
 	Partido part;
 	Equipo a, b;
-	bool banderaPartido=false;
+	bool banderaPartido = false;
 	int nroPartido = 0;
 
 	sf::Text textFixture;
@@ -147,14 +147,14 @@ int main() {
 	ganador.setFillColor(sf::Color::White);
 	ganador.setCharacterSize(45);
 	ganador.setPosition(200, 100);
-	
+
 	sf::Text teclas;
 	teclas.setString("Esc: Salir                           Siguiente->");
 	teclas.setFont(fontTablas);
 	teclas.setFillColor(sf::Color::Green);
 	teclas.setCharacterSize(20);
 	teclas.setPosition(5, 550.0f);
-	
+
 	Menu menu(window.getSize().x, window.getSize().y);
 
 	sf::Sprite backgroudShape;
@@ -171,6 +171,11 @@ int main() {
 
 	backgroudShape.setScale(scaleX, scaleY);
 
+	sf::Sprite backgroudShapeControles;
+	sf::Texture backgroundTextureControles;
+	backgroundTextureControles.loadFromFile("Recursos/windowControles.png");
+	backgroudShapeControles.setTexture(backgroundTextureControles);
+
 	b2Vec2 gravity(GRAVITY_X, GRAVITY_Y);
 	b2World world(gravity);
 	Gameplay gameplay(world, window);
@@ -182,20 +187,20 @@ int main() {
 		{
 			if (event.type == sf::Event::KeyReleased)
 			{
-				if (event.key.code == sf::Keyboard::W)
+				if (event.key.code == sf::Keyboard::Up)
 				{
 					menu.moveUp();
 					break;
 				}
-				else if (event.key.code == sf::Keyboard::S)
+				else if (event.key.code == sf::Keyboard::Down)
 				{
 					menu.moveBottom();
 					break;
 				}
 				if (event.key.code == sf::Keyboard::Enter)
 				{
-					sf::RenderWindow playWindow(sf::VideoMode(800, 600), "Jugar");
-					sf::RenderWindow torneoWindow(sf::VideoMode(800, 600), "Torneo");
+					sf::RenderWindow playWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jugar");
+					sf::RenderWindow torneoWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Torneo");
 					playWindow.setFramerateLimit(60);
 					torneoWindow.setFramerateLimit(60);
 					if (menu.getCurrentOption() == 0)
@@ -236,10 +241,10 @@ int main() {
 						_mpar.eliminarFixture();
 						playWindow.close();
 						window.close();
-						
+
 						while (torneoWindow.isOpen())
 						{
-							
+
 							sf::Event event;
 							while (torneoWindow.pollEvent(event))
 							{
@@ -252,18 +257,18 @@ int main() {
 									if (event.key.code == sf::Keyboard::Escape)
 										torneoWindow.close();
 								}
-															
 
-								if (estadoActual== EstadoTorneo::IngresoDeCantidad) {
+
+								if (estadoActual == EstadoTorneo::IngresoDeCantidad) {
 									handleInput(event, nroDeJugadores, entradaUsuario, clock);
-									if (strcmp(nroDeJugadores.c_str(),"")!=0) {
+									if (strcmp(nroDeJugadores.c_str(), "") != 0) {
 										banderaTorneo = true;
 									}
 									if (banderaTorneo) {
 										if (torneocreado == false) {
 											numJug = std::stoi(nroDeJugadores);
 											torneo.setCantidadEquipos(numJug);
-										
+
 											torneocreado = true;
 											estadoActual = EstadoTorneo::IngresoDeNombres;
 										}
@@ -288,7 +293,7 @@ int main() {
 									textFixture.setString(_mpar.mostrarFixture());
 									_mp.listarPorPuntajeDescendente();
 									textTabla.setString(_mp.mostrarTabla());
-									
+
 
 									if (event.type == sf::Event::KeyPressed) {
 										if (event.key.code == sf::Keyboard::Right) {
@@ -301,20 +306,21 @@ int main() {
 												}
 
 												if (nroPartido == _mpar.getCantidadPartidos()) {
-														estadoActual = EstadoTorneo::Finalizado;
-													
-												} else {
+													estadoActual = EstadoTorneo::Finalizado;
+
+												}
+												else {
 
 													estadoActual = EstadoTorneo::Juego;
 													gameplay.reiniciarPartido();
 												}
-																								
+
 											}
 										}
 									}
 								}
-								
-								
+
+
 
 								else if (estadoActual == EstadoTorneo::Juego) {
 									world.Step(1.0f / 60.0f, 6, 2);
@@ -326,17 +332,17 @@ int main() {
 										part = _ap.leerRegistro(nroPartido);
 										a = _me.getEquipoPorID(part.getEquipoA());
 										b = _me.getEquipoPorID(part.getEquipoB());
-																			
+
 
 										if (part.getEjecutado() == false) {
-											
+
 											a.setIdJugador(1);
 											b.setIdJugador(2);
 											_me.modificarEquipo(a.getId(), a);
 											_me.modificarEquipo(b.getId(), b);
-											
-											gameplay.setNombreJugador(a,1);
-											gameplay.setNombreJugador(b,2);
+
+											gameplay.setNombreJugador(a, 1);
+											gameplay.setNombreJugador(b, 2);
 
 											part.setEjecutado(true);
 											_ap.modificarRegistro(nroPartido, part);
@@ -347,7 +353,7 @@ int main() {
 									gameplay.update();
 
 									if (gameplay.getTime() <= 0) {
-										
+
 										part.setGolesA(gameplay.getGolesJugador2());
 										part.setGolesB(gameplay.getGolesJugador1());
 										_ap.modificarRegistro(nroPartido, part);
@@ -357,10 +363,10 @@ int main() {
 
 										_me.modificarEquipo(a.getId(), a);
 										_me.modificarEquipo(b.getId(), b);
-									
+
 										_mp.actualizarPuntaje(a.getId(), gameplay.getGolesJugador2(), gameplay.getGolesJugador1());
 										_mp.actualizarPuntaje(b.getId(), gameplay.getGolesJugador2(), gameplay.getGolesJugador1());
-										
+
 										estadoActual = EstadoTorneo::MuestraGanador;
 										banderaPartido = false;
 										nroPartido++;
@@ -369,21 +375,21 @@ int main() {
 
 								else if (estadoActual == EstadoTorneo::MuestraGanador) {
 									std::cout << "nro partido" << nroPartido << std::endl;
-									ganador.setString("Ganador : \n" + _mpar.getNombreGanador(nroPartido-1));
-									
+									ganador.setString("Ganador : \n" + _mpar.getNombreGanador(nroPartido - 1));
+
 									if (event.type == sf::Event::KeyPressed) {
 										if (event.key.code == sf::Keyboard::Right) {
 											if (estadoActual == EstadoTorneo::MuestraGanador) {
 												estadoActual = EstadoTorneo::MuestraResultados;
-											
+
 											}
 										}
 									}
-					
+
 								}
 								else if (estadoActual == EstadoTorneo::Finalizado) {
 									ganador.setString("Ganador Del Torneo: \n" + _mp.mostrarGanador());
-									
+
 									if (event.type == sf::Event::KeyPressed) {
 										if (event.key.code == sf::Keyboard::Right) {
 											if (estadoActual == EstadoTorneo::Finalizado) {
@@ -394,41 +400,89 @@ int main() {
 
 								}
 
-									torneoWindow.clear();
-																	
-									if (estadoActual == EstadoTorneo::IngresoDeCantidad) {
-										torneoWindow.draw(VTorneo);
-										torneoWindow.draw(entradaUsuario);
-										torneoWindow.draw(title);
-									
-									}else if (estadoActual == EstadoTorneo::IngresoDeNombres) {
-										torneoWindow.draw(text);
-										torneoWindow.draw(entradaUsuario2);
-										torneoWindow.draw(title);
-									}
-									else if (estadoActual == EstadoTorneo::MuestraResultados) {
-										torneoWindow.draw(textFixture);
-										torneoWindow.draw(textTabla);
-										torneoWindow.draw(teclas);
-									}
-									else if (estadoActual == EstadoTorneo::Juego) {
-										gameplay.draw(torneoWindow);
-									}
-									else if (estadoActual == EstadoTorneo::MuestraGanador) {
-										torneoWindow.draw(ganador);
-										torneoWindow.draw(teclas);
-									}
-									else if (estadoActual == EstadoTorneo::Finalizado) {
-										torneoWindow.draw(ganador);
-									}
+								torneoWindow.clear();
 
-									torneoWindow.display();
+								if (estadoActual == EstadoTorneo::IngresoDeCantidad) {
+									torneoWindow.draw(VTorneo);
+									torneoWindow.draw(entradaUsuario);
+									torneoWindow.draw(title);
+
+								}
+								else if (estadoActual == EstadoTorneo::IngresoDeNombres) {
+									torneoWindow.draw(text);
+									torneoWindow.draw(entradaUsuario2);
+									torneoWindow.draw(title);
+								}
+								else if (estadoActual == EstadoTorneo::MuestraResultados) {
+									torneoWindow.draw(textFixture);
+									torneoWindow.draw(textTabla);
+									torneoWindow.draw(teclas);
+								}
+								else if (estadoActual == EstadoTorneo::Juego) {
+									gameplay.draw(torneoWindow);
+								}
+								else if (estadoActual == EstadoTorneo::MuestraGanador) {
+									torneoWindow.draw(ganador);
+									torneoWindow.draw(teclas);
+								}
+								else if (estadoActual == EstadoTorneo::Finalizado) {
+									torneoWindow.draw(ganador);
+								}
+
+								torneoWindow.display();
 							}
-					
+
 						}
-					
+
 					}
 					if (menu.getCurrentOption() == 2)
+					{
+						sf::RenderWindow windowControles(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Controles");
+						windowControles.setFramerateLimit(60);
+						sf::Text controles;
+						controles.setString("Controles");
+						controles.setFont(fontTitle);
+						controles.setFillColor(sf::Color::White);
+						controles.setCharacterSize(40);
+						sf::FloatRect titleSize = controles.getGlobalBounds();
+						controles.setOrigin(titleSize.width / 2, titleSize.height / 2);
+						controles.setPosition(window.getSize().x / 2, 50.0f);
+						sf::Text unJugador;
+						unJugador.setFont(fontTitle);
+						unJugador.setFillColor(sf::Color::Black);
+						unJugador.setString("Un jugador");
+						unJugador.setPosition(50.0f,100.0f);
+						sf::Text dosJugadores;
+						dosJugadores.setString("Dos jugadores");
+						dosJugadores.setFont(fontTitle);
+						dosJugadores.setFillColor(sf::Color::Black);
+						dosJugadores.setString("Dos jugadores");
+						dosJugadores.setPosition(50.0f, 350.0f);
+
+						while (windowControles.isOpen())
+						{
+							sf::Event event;
+							while (windowControles.pollEvent(event))
+							{
+								if (event.type == sf::Event::Closed)
+								{
+									windowControles.close();
+								}
+								if (event.type == sf::Event::KeyPressed)
+								{
+									if (event.key.code == sf::Keyboard::Escape)
+										windowControles.close();
+								}
+							}
+							windowControles.clear();
+							windowControles.draw(backgroudShapeControles);
+							windowControles.draw(controles);
+							windowControles.draw(unJugador);
+							windowControles.draw(dosJugadores);
+							windowControles.display();
+						}
+					}
+					if (menu.getCurrentOption() == 3)
 					{
 						window.close();
 					}

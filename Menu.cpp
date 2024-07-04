@@ -3,7 +3,7 @@
 
 Menu::Menu(float width, float height)
 {
-	cant = 3;
+	cant = 4;
 	options = new sf::Text[cant];
 
 	if (options == NULL)
@@ -14,7 +14,8 @@ Menu::Menu(float width, float height)
 
 	options[0].setString("Jugar");
 	options[1].setString("Torneo");
-	options[2].setString("Salir");
+	options[2].setString("Controles");
+	options[3].setString("Salir");
 	setPositionOptions(height, width);
 	setDefaultStyle();
 
@@ -28,7 +29,7 @@ void Menu::setDefaultStyle()
 	{
 		options[i].setFillColor(sf::Color::White);
 		options[i].setFont(font);
-		options[i].setCharacterSize(40);
+		options[i].setCharacterSize(30);
 		sf::FloatRect sizeText = options[i].getGlobalBounds();
 		options[i].setOrigin(sizeText.width / 2.0f,
 			sizeText.getSize().y / 2.0f);
@@ -36,7 +37,7 @@ void Menu::setDefaultStyle()
 }
 void Menu::setPositionOptions(float height, float width)
 {
-	const int WORD_SPACE = 60.0F;
+	const int WORD_SPACE = 40.0F;
 	sf::Vector2f firstElement = sf::Vector2f(width / 2, height / 3.5);
 	options[0].setPosition(firstElement);
 

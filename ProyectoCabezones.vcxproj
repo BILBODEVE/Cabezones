@@ -152,7 +152,6 @@
     <ClCompile Include="CampoDeJuego.cpp" />
     <ClCompile Include="Colisionable.cpp" />
     <ClCompile Include="Controllers.cpp" />
-    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Equipo.cpp" />
     <ClCompile Include="Fixture.cpp" />
     <ClCompile Include="Gameplay.cpp" />
@@ -185,7 +184,6 @@
     <ClInclude Include="CampoDeJuego.h" />
     <ClInclude Include="Colisionable.h" />
     <ClInclude Include="Controllers.h" />
-    <ClInclude Include="Entity.h" />
     <ClInclude Include="Equipo.h" />
     <ClInclude Include="Fixture.h" />
     <ClInclude Include="funcionesglobales.h" />

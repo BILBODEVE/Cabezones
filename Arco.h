@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "Colisionable.h"
 #include "ProjectSettings.h"
-#include "Entity.h"
 
 class Arco : public sf::Drawable
 {
@@ -25,7 +24,7 @@ private:
 	sf::RectangleShape _arco;
 	b2Body* _bodyT;
 	sf::RectangleShape _travesanio;
-	sf::Vector2f posicionSensor;
-	int id;
+	sf::Vector2f _posicionSensor;
+	int _id;
 };
 

@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include <box2d/box2d.h>
 #include "Colisionable.h"
-#include "Entity.h"
 
 class CampoDeJuego : public sf::Drawable, public Colisionable
 {

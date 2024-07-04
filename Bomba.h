@@ -19,7 +19,7 @@ private:
 	b2World* _world;
 	b2Body* _itemBody;
 	b2BodyDef _bodyDef;
-	int random_number;
+	int _random_number;
 	int _ultimaAparicion;
 };
 

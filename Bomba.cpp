@@ -25,10 +25,10 @@ void Bomba::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Bomba::Aparecer(b2World& world)
 {
-	random_number = 150 + std::rand() % 551;
+	_random_number = 150 + std::rand() % 551;
 
 	_bodyDef.type = b2_dynamicBody;
-	_bodyDef.position = b2Vec2(random_number / SCALE, 300 / SCALE);
+	_bodyDef.position = b2Vec2(_random_number / SCALE, 300 / SCALE);
 	_bodyDef.fixedRotation = true;
 	_bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 	_itemBody = world.CreateBody(&_bodyDef);
@@ -66,7 +66,7 @@ int Bomba::getUltimaAparicion()
 void Bomba::Destroy()
 {
 	if (_itemBody != nullptr) {
-		_world->DestroyBody(_itemBody);//mundo destruye el cuerpo
-		_itemBody = NULL;//body=null
+		_world->DestroyBody(_itemBody);
+		_itemBody = NULL;
 	}
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include <box2d/box2d.h>
-#include "Entity.h"
 #include "Arco.h"
 #include "Jugador.h"
 #include "Pelota.h"

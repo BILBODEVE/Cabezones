@@ -2,7 +2,6 @@
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
 #include "ProjectSettings.h"
-#include "Entity.h"
 #include "Controllers.h"
 
 class Jugador : public sf::Drawable
@@ -34,13 +33,13 @@ private:
 	b2Body* _bodyJugador;
 	b2BodyDef _playerBody;
 	b2PolygonShape _shape;
-	sf::Texture texture;
-	sf::Sprite sprite;
-	sf::Vector2f velocity;
-	Controllers keyOfMovement;
-	float moveSpeed;
-	float jumpSpeed;
-	float frame;
+	sf::Texture _texture;
+	sf::Sprite _sprite;
+	sf::Vector2f _velocity;
+	Controllers _keyOfMovement;
+	float _moveSpeed;
+	float _jumpSpeed;
+	float _frame;
 	enum PlayerState {
 		STILL,
 		RUNNING_FORWARD,
@@ -48,9 +47,9 @@ private:
 		JUMPING,
 		KICKING
 	};
-	PlayerState move;
-	PlayerState state;
-	int playerID;
+	PlayerState _moveX;
+	PlayerState _stateMove;
+	int _playerID;
 	int _goles;
 	std::string _textRoute;
 	sf::Vector2f _posicion;

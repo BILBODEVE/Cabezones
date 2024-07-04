@@ -66,7 +66,7 @@ Gameplay::Gameplay(b2World& world, sf::RenderWindow& window) : _campo(world), _h
 	_player2.setPosicion(sf::Vector2f(window.getSize().x - sizeArco.x - (80 / 2), 429));
 	_player2.createSprite(spritesheetplayerJuan);
 	_player2.createBodyPlayer(world);
-	_player2.setControles(sf::Keyboard::Key::I, sf::Keyboard::Key::L, sf::Keyboard::Key::J, sf::Keyboard::Key::M);
+	_player2.setControles(sf::Keyboard::Key::Up, sf::Keyboard::Key::Right, sf::Keyboard::Key::Left, sf::Keyboard::Key::K);
 	_player2.getSprite().setScale(-1, 1);
 
 	_hielo.setUltimaAparicion(_hielo.GenerarSiguienteIntervalo());
@@ -297,7 +297,6 @@ void Gameplay::command(b2World& world)
 		if (_aumentador.getBody() != nullptr) {
 			_aumentador.Destroy();
 		}
-		//j1.crearJugador(true);
 		_player1.getSprite().setScale(1.5, 1.5);
 		_aumentadoJ1 = true;
 		_aumentadorJ1 = false;
@@ -307,8 +306,6 @@ void Gameplay::command(b2World& world)
 		if (_aumentador.getBody() != nullptr) {
 			_aumentador.Destroy();
 		}
-
-		//j2.crearJugador(true);
 		_player2.getSprite().setScale(-1.5, 1.5);
 		_aumentadoJ2 = true;
 		_aumentadorJ2 = false;
@@ -316,14 +313,12 @@ void Gameplay::command(b2World& world)
 
 	tiempoAumentador = _aumentadorClock1.getElapsedTime();
 	if (tiempoAumentador.asSeconds() >= 4 && _aumentadoJ1) {
-		//j1.crearJugador();
 		_player1.getSprite().setScale(1, 1);
 		_aumentadoJ1 = false;
 	}
 
 	tiempoAumentador = _aumentadorClock2.getElapsedTime();
 	if (tiempoAumentador.asSeconds() >= 4 && _aumentadoJ2) {
-		//j2.crearJugador();
 		_player2.getSprite().setScale(-1, 1);
 		_aumentadoJ2 = false;
 	}
