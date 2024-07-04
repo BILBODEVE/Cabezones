@@ -3,11 +3,15 @@
 #include "Partido.h"
 #include <iostream>
 
-Torneo::Torneo(int cantEquipos) : _fixture(nullptr), _cantJornadas(0)
+Torneo::Torneo(): _fixture(nullptr), _cantJornadas(0), _cantEquipos(0)
+{
+}
+
+void Torneo::setCantidadEquipos(int cantEquipos)
 {
 	if (cantEquipos > 1) {
 		if (cantEquipos % 2 == 0) {
-			_cantJornadas = cantEquipos-1;
+			_cantJornadas = cantEquipos - 1;
 		}
 		else {
 			_cantJornadas = cantEquipos;
@@ -19,7 +23,7 @@ Torneo::Torneo(int cantEquipos) : _fixture(nullptr), _cantJornadas(0)
 			exit(-5);
 		}
 		_cantEquipos = cantEquipos;
-		
+
 	}
 	else {
 		_fixture = nullptr;

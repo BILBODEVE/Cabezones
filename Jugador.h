@@ -26,6 +26,9 @@ public:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const override;
 	void addGol();
 	int getGoles();
+	void resetGoles();
+	void setName(std::string name);
+	std::string getName();
 	
 private:
 	b2Body* _bodyJugador;
@@ -54,5 +57,6 @@ private:
 	int _spriteFrames;
 	int _spriteHeight;
 	int _spriteWidth;
+	std::string _name;
 };
 

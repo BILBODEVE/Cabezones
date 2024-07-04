@@ -8,13 +8,13 @@ ManagerEquipo::ManagerEquipo(): _ae("Equipos.fix")
 {
 }
 
-void ManagerEquipo::agregarEquipo()
+void ManagerEquipo::agregarEquipo(std::string nombreEquipo)
 {
 	ManagerPuntaje _mp;
 	Equipo aux;
-	std::string nombreEquipo;
-	std::cout << "Ingrese nombre del Equipo o Jugador: ";
-	std::cin >> nombreEquipo;
+	
+	//std::cout << "Ingrese nombre del Equipo o Jugador: ";
+	//std::cin >> nombreEquipo;
 	aux.setNombre(nombreEquipo);
 	int id = _ae.getNuevoID();
 	aux.setId(id);
@@ -27,11 +27,26 @@ void ManagerEquipo::agregarEquipo()
 	}
 }
 
+
 void ManagerEquipo::eliminarEquipos()
 {
 	if (_ae.borrarRegistros()) {
 		std::cout << "Equipos eliminados" << std::endl;
 	}
+}
+
+void ManagerEquipo::modificarEquipo(int idEquipo, Equipo& equipo)
+{
+	int pos = _ae.buscarPorId(idEquipo);
+	_ae.modificarRegistro(pos, equipo);
+}
+
+Equipo ManagerEquipo::getEquipoPorID(int id)
+{
+	Equipo aux;
+	int pos= _ae.buscarPorId(id);
+	aux= _ae.leerRegistro(pos);
+	return aux;
 }
 
 int* ManagerEquipo::getIdEquipos()

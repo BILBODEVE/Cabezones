@@ -6,13 +6,19 @@ class ManagerPuntaje
 {
 public:
 	ManagerPuntaje();
-	void listarPorPuntajeDescendente();
-	void ordenarPuntajesDescendente(Puntaje puntajes[], int cantidad);
+	Puntaje* listarPorPuntajeDescendente();
+	int getCantidad();
+	void ordenarPuntajesDescendente();
 	void agregarPuntajeATabla(Equipo &equipo);
 	void actualizarPuntaje(int idEquipo, int golesJug1, int golesJug2);
-	void mostrarTabla(Puntaje puntajes[], int cantidad);
+	void eliminarTabla();
+	std::string mostrarTabla();
+	std::string mostrarGanador();
+	~ManagerPuntaje();
 
 private:
 	ArchivoPuntaje _ap;
+	Puntaje* _puntajes;
+	int _cantidad;
 };
 

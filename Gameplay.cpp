@@ -120,6 +120,41 @@ void Gameplay::draw(sf::RenderWindow& window)
 	window.draw(_resultado);
 }
 
+void Gameplay::setNombreJugador(Equipo &equipo, int idplayer)
+{
+	if (idplayer == 1) {
+		_player1.setName(equipo.getNombre());
+	}
+	else if (idplayer == 2) {
+		_player2.setName(equipo.getNombre());
+	}
+}
+
+void Gameplay::reiniciarPartido()
+{
+	_clock.restart();
+	_player1.setPosicionInicial(1);
+	_player2.setPosicionInicial(2);
+	_pelota.setPosition(sf::Vector2f(400, 25));
+	_player1.resetGoles();
+	_player2.resetGoles();
+}
+
+int Gameplay::getGolesJugador1()
+{
+	return _player1.getGoles();
+}
+
+int Gameplay::getGolesJugador2()
+{
+	return _player2.getGoles();
+}
+
+int Gameplay::getTime()
+{
+	return _tiempoRestante;
+}
+
 void Gameplay::command(b2World& world)
 {
 	cronometro = _clock.getElapsedTime();
@@ -294,7 +329,7 @@ void Gameplay::command(b2World& world)
 	}
 
 	std::string res;
-	res = std::to_string(_player2.getGoles()) + "                       " + std::to_string(_player1.getGoles());
+	res = std::to_string(_player2.getGoles()) + "   " + _player1.getName() + "          " + _player2.getName() + "   " +std::to_string(_player1.getGoles());
 	_resultado.setString(res);
 	_resultado.setOrigin(sf::Vector2f(_resultado.getGlobalBounds().width / 2, 0));
 

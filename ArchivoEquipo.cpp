@@ -50,7 +50,7 @@ int ArchivoEquipo::buscarPorId(int idEquipo) {
 		return -1;
 	}
 
-	while (fread(&reg, sizeof(Equipo), 1, pFile)) {
+	while (fread(&reg, sizeof(Equipo), 1, pFile)==1) {
 		if (reg.getId() == idEquipo) {
 			fclose(pFile);
 			return pos;

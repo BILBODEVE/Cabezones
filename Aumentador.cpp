@@ -44,7 +44,7 @@ void Aumentador::Aparecer(b2World& world)
 
 int Aumentador::GenerarSiguienteIntervalo()
 {
-	int intervalo = 10 + std::rand() % 10;
+	int intervalo = 20 + std::rand() % 10;
 	return intervalo;
 }
 

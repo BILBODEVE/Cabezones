@@ -1,48 +1,54 @@
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 #include "ManagerPuntaje.h"
 #include "ArchivoEquipo.h"
+#include "ManagerEquipo.h"
 
-ManagerPuntaje::ManagerPuntaje():_ap("TablaDePuntajes.fix")
+ManagerPuntaje::ManagerPuntaje():_ap("TablaDePuntajes.fix"), _puntajes(nullptr), _cantidad(0)
 {
 }
 
-void ManagerPuntaje::listarPorPuntajeDescendente()
+Puntaje* ManagerPuntaje::listarPorPuntajeDescendente()
 {
-    int cantidad = _ap.cantidadRegistros();
-    Puntaje* puntajes;
-    puntajes = new Puntaje[cantidad];
+    _cantidad = _ap.cantidadRegistros();
+  
+    _puntajes = new Puntaje[_cantidad];
 
-    if (puntajes == nullptr) return;
+    if (_puntajes == nullptr) return nullptr;
+            
+    _ap.leerTodos(_puntajes, _cantidad);
 
-    
-    _ap.leerTodos(puntajes, cantidad);
+   ordenarPuntajesDescendente();
 
-   ordenarPuntajesDescendente(puntajes, cantidad);
-
-   mostrarTabla(puntajes,cantidad);
+   //mostrarTabla(puntajes,cantidad);
  
-    delete[] puntajes;
+    return _puntajes;
 }
 
-void ManagerPuntaje::ordenarPuntajesDescendente(Puntaje puntajes[], int cantidad)
+int ManagerPuntaje::getCantidad()
+{
+    return _cantidad;
+}
+
+void ManagerPuntaje::ordenarPuntajesDescendente()
 {
     int i, j;
     int posMaximo;
 
-    for (i = 0; i < cantidad - 1; i++) {
+    for (i = 0; i < _cantidad - 1; i++) {
         posMaximo = i;
 
-        for (j = i + 1; j < cantidad; j++) {
-            if (puntajes[j].getPuntos() > puntajes[posMaximo].getPuntos()) {
+        for (j = i + 1; j < _cantidad; j++) {
+            if (_puntajes[j].getPuntos() > _puntajes[posMaximo].getPuntos()) {
                 posMaximo = j;
             }
         }
 
         if (i != posMaximo) {
-            Puntaje aux = puntajes[i];
-            puntajes[i] = puntajes[posMaximo];
-            puntajes[posMaximo] = aux;
+            Puntaje aux = _puntajes[i];
+            _puntajes[i] = _puntajes[posMaximo];
+            _puntajes[posMaximo] = aux;
         }
     }
 }
@@ -102,14 +108,20 @@ void ManagerPuntaje::actualizarPuntaje(int idEquipo, int golesJug1, int golesJug
     }
 }
 
-void ManagerPuntaje::mostrarTabla(Puntaje puntajes[], int cantidad)
+void ManagerPuntaje::eliminarTabla()
 {
+    _ap.crearNuevaTabla();
+}
+
+std::string ManagerPuntaje::mostrarTabla()
+{
+    std::ostringstream cadena;
     Puntaje aux;
     Equipo eq;
     int posEq;
     ArchivoEquipo ae("Equipos.fix");
 
-    std::cout << std::setw(3) << std::left << "P"
+    cadena << std::setw(3) << std::left << "P"
         << std::setw(10) << std::left << "Equipo"
         << std::setw(5) << std::left << "PJ"
         << std::setw(5) << "G" 
@@ -119,14 +131,37 @@ void ManagerPuntaje::mostrarTabla(Puntaje puntajes[], int cantidad)
         << std::setw(3) << ""
         << std::setw(5) << "Pts." << std::endl;
 
-    for (int i = 0; i < cantidad; i++) {
-        posEq= ae.buscarPorId(puntajes[i].getIdEquipo());
+    for (int i = 0; i < _cantidad; i++) {
+        posEq= ae.buscarPorId(_puntajes[i].getIdEquipo());
         eq= ae.leerRegistro(posEq);
-        std::cout  << std::setw(3) << std::left << i+1
+        cadena  << std::setw(3) << std::left << i+1
            << std::setw(10)  << std::left << eq.getNombre()
-           << puntajes[i].toString() << std::endl;
+           << _puntajes[i].toString() << std::endl;
     }
-      
+
+    return cadena.str();
+}
+
+std::string ManagerPuntaje::mostrarGanador()
+{
+    std::string aux;
+    ManagerEquipo me;
+    Equipo eq;
+    for (int i = 0; i < _cantidad; i++) {
+        if (_puntajes[i].getPuntos() >= _puntajes[0].getPuntos()) {
+            eq= me.getEquipoPorID(_puntajes[i].getIdEquipo());
+            aux += eq.getNombre();
+            aux += "\n";
+        }
+    }
+    return aux;
+}
+
+ManagerPuntaje::~ManagerPuntaje()
+{
+    if (_cantidad != 0) {
+        delete[] _puntajes;
+    }
 }
 
 

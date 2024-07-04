@@ -15,6 +15,17 @@ bool ArchivoPartido::grabarRegistro(const Partido& partido)
 	return true;
 }
 
+bool ArchivoPartido::modificarRegistro(int pos, const Partido& partido)
+{
+	FILE* p;
+	p = fopen(_nombre, "rb+");
+	if (p == nullptr) return false;
+	fseek(p, sizeof(Partido) * pos, SEEK_SET);
+	bool ok = fwrite(&partido, sizeof(Partido), 1, p);
+	fclose(p);
+	return ok;
+}
+
 bool ArchivoPartido::crearNuevoFixture()
 {
 	FILE* p;
@@ -28,6 +39,7 @@ Partido ArchivoPartido::leerRegistro(int pos)
 {
 	FILE* p;
 	Partido aux;
+	aux.setNroJornada(-1);
 	p = fopen(_nombre, "rb");
 	if (p == nullptr) return aux;
 	fseek(p, sizeof(Partido) * pos, SEEK_SET);

@@ -63,7 +63,7 @@ void Hielo::Aparecer(b2World& world)
 
 int Hielo::GenerarSiguienteIntervalo()
 {
-	int intervalo = 10 + std::rand() % 10;
+	int intervalo = 20 + std::rand() % 10;
 	return intervalo;
 }
 

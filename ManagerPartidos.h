@@ -5,7 +5,10 @@ class ManagerPartidos
 {
 public:
     ManagerPartidos();
-    void mostrarFixture(int cantJornadas);
+    const std::string getNombreGanador(int nroPartido);
+    int getCantidadPartidos();
+    void eliminarFixture();
+    std::string mostrarFixture();
 
 private:
     ArchivoPartido _ap;

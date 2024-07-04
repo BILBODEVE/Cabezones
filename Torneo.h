@@ -5,7 +5,8 @@
 class Torneo
 {
 public:
-	Torneo(int cantEquipos);
+	Torneo();
+	void setCantidadEquipos(int cantEquipos);
 	void crearFixture();
 	int getCantidadJornadas();
 	~Torneo();

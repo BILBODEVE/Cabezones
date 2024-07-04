@@ -5,8 +5,10 @@ class ManagerEquipo
 {
 public:
 	ManagerEquipo();
-	void agregarEquipo();
+	void agregarEquipo(std::string nombreEquipo);
 	void eliminarEquipos();
+	void modificarEquipo(int id, Equipo& equipo);
+	Equipo getEquipoPorID(int id);
 	int* getIdEquipos();
 	
 private:
